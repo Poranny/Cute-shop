@@ -10,7 +10,10 @@ public class PlayerMovementController : MonoBehaviour {
    public Transform camTransform;
    public Transform playerTransform;
    
+   public Transform thePlantTransform;
+   
    public AudioSource footstepsSound;
+   public AudioSource breakSound;
    
    public Animator playerAnimator;
    
@@ -19,6 +22,8 @@ public class PlayerMovementController : MonoBehaviour {
    public float speed;
    
    private bool isGoing;
+   
+   private bool isPlantBroken;
    
    
    void Update () {
@@ -55,12 +60,30 @@ public class PlayerMovementController : MonoBehaviour {
                   
                   footstepsSound.Play ();
                }
+               
+               else if (hit.collider.gameObject.CompareTag ("Collision plant")) {
+                  if (isPlantBroken) {
+                     StartCoroutine (GoTo (new Vector3 (theMousePos.x, theMousePos.y, 0)));
+                  }
+                  
+                  else {
+                     isPlantBroken = true;
+                     
+                     StartCoroutine (GoTo (new Vector3 (theMousePos.x, theMousePos.y, 0), isPlant: true));
+                  }
+                  
+                  isGoing = true;
+                  
+                  playerAnimator.SetBool ("Is going", isGoing);
+                  
+                  footstepsSound.Play ();
+               }
             }
          }
       }
    }
    
-   public IEnumerator GoTo (Vector3 destination) {
+   public IEnumerator GoTo (Vector3 destination, bool isPlant = false) {
       
       Vector3 dir = (destination - playerTransform.position).normalized;
       
@@ -76,10 +99,17 @@ public class PlayerMovementController : MonoBehaviour {
          playerAnimator.SetBool ("Is going", isGoing);
          
          footstepsSound.Stop ();
+         
+         if (isPlant) {
+            breakSound.Play ();
+            
+            thePlantTransform.eulerAngles = new Vector3 (0, 0, 90);
+            thePlantTransform.position += new Vector3 (-0.1f, 0, 0);
+         }
       }
       
       else {
-         StartCoroutine (GoTo (destination));
+         StartCoroutine (GoTo (destination, isPlant));
       }
    }
 }

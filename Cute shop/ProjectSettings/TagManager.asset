@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collision floor
   - Collision shop
+  - Collision plant
   layers:
   - Default
   - TransparentFX
