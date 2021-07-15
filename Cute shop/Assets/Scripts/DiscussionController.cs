@@ -13,6 +13,12 @@ public class DiscussionController : MonoBehaviour {
    
    public GameObject shopPanel;
    
+   public AudioSource howAreYouSound;
+   public AudioSource ohSound;
+   public AudioSource greatSound;
+   
+   public Animator sellerAnimator;
+   
    public bool wasShopOpened;
    
    
@@ -21,6 +27,10 @@ public class DiscussionController : MonoBehaviour {
       wasShopOpened = true;
       
       discussion.SetActive (true);
+      
+      howAreYouSound.Play ();
+      
+      sellerAnimator.SetTrigger ("Start talking");
    }
    
    public void OptionAChosen () {
@@ -28,6 +38,10 @@ public class DiscussionController : MonoBehaviour {
       firstPanel.SetActive (false);
       
       secondPanelA.SetActive (true);
+      
+      ohSound.Play ();
+      
+      sellerAnimator.SetTrigger ("Start talking");
    }
    
    public void OptionBChosen () {
@@ -35,6 +49,10 @@ public class DiscussionController : MonoBehaviour {
       firstPanel.SetActive (false);
       
       secondPanelB.SetActive (true);
+      
+      greatSound.Play ();
+      
+      sellerAnimator.SetTrigger ("Start talking");
    }
    
    public void ExitChosen () {

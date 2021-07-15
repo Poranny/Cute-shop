@@ -10,6 +10,8 @@ public class PlayerMovementController : MonoBehaviour {
    public Transform camTransform;
    public Transform playerTransform;
    
+   public AudioSource footstepsSound;
+   
    public Animator playerAnimator;
    
    public Camera cam;
@@ -50,6 +52,8 @@ public class PlayerMovementController : MonoBehaviour {
                   isGoing = true;
                   
                   playerAnimator.SetBool ("Is going", isGoing);
+                  
+                  footstepsSound.Play ();
                }
             }
          }
@@ -70,6 +74,8 @@ public class PlayerMovementController : MonoBehaviour {
          isGoing = false;
       
          playerAnimator.SetBool ("Is going", isGoing);
+         
+         footstepsSound.Stop ();
       }
       
       else {
