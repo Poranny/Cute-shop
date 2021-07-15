@@ -26,6 +26,12 @@ public class ShopController : MonoBehaviour {
    public GameObject silverPriceText;
    public GameObject goldenPriceText;
    
+   public GameObject basicEquippedTick;
+   public GameObject redEquippedTick;
+   public GameObject greenEquippedTick;
+   public GameObject silverEquippedTick;
+   public GameObject goldenEquippedTick;
+   
    public SpriteRenderer playerDressRenderer;
    
    public Sprite basicDressImg;
@@ -183,14 +189,31 @@ public class ShopController : MonoBehaviour {
       
       equipButton.SetActive (false);
       
+      basicEquippedTick.SetActive (false);
+      redEquippedTick.SetActive (false);
+      greenEquippedTick.SetActive (false);
+      silverEquippedTick.SetActive (false);
+      goldenEquippedTick.SetActive (false);
+      
       switch (theBoughtCloth.name) {
          case "Basic" :
+            basicEquippedTick.SetActive (true);
          break;
          
          case "Red" :
+            redEquippedTick.SetActive (true);
          break;
          
          case "Green" :
+            greenEquippedTick.SetActive (true);
+         break;
+         
+         case "Silver" :
+            silverEquippedTick.SetActive (true);
+         break;
+         
+         case "Golden" :
+            goldenEquippedTick.SetActive (true);
          break;
       }
    }
