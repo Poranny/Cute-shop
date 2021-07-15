@@ -69,7 +69,7 @@ public class PlayerMovementController : MonoBehaviour {
                   else {
                      isPlantBroken = true;
                      
-                     StartCoroutine (GoTo (new Vector3 (theMousePos.x, theMousePos.y, 0), isPlant: true));
+                     StartCoroutine (GoTo (new Vector3 (theMousePos.x, theMousePos.y, 0), isPlant: true)); // I know it goes a bit messy with passing that bool over and over until the end but I simply thought that given the plant is single there won't be a problem to implement it in this quicker but less clear way. I've come up with this easter egg almost in the end of everything so it was easier to implement this way.
                   }
                   
                   isGoing = true;

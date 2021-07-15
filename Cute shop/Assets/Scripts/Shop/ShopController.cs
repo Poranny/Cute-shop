@@ -32,7 +32,6 @@ public class ShopController : MonoBehaviour {
    public GameObject silverEquippedTick;
    public GameObject goldenEquippedTick;
    
-   
    public Cloth selectedCloth;
    
    
@@ -48,7 +47,7 @@ public class ShopController : MonoBehaviour {
       ResetSelection ();
    }
    
-   public void SetSelectedCloth (string newClothName) {
+   public void SetSelectedCloth (string newClothName) { // Setting the selected cloth tile and the "equip", "buy" etc. buttons as well
       
       switch (newClothName) {
          case "Basic" :
@@ -120,7 +119,7 @@ public class ShopController : MonoBehaviour {
       }
    }
    
-   public void SetSelectionShadow (GameObject chosenSelectionShadow) {
+   public void SetSelectionShadow (GameObject chosenSelectionShadow) { // Setting the grey cover that appears over the selected tile
       
       basicSelectionShadow.SetActive (false);
       redSelectionShadow.SetActive (false);

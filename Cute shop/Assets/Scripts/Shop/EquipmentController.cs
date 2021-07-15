@@ -26,7 +26,7 @@ public class EquipmentController : MonoBehaviour {
    
    void Start () {
       
-      basicDress = new Cloth ("Basic", 0, basicDressImg, playerDressRenderer, this, getIsBought: true);
+      basicDress = new Cloth ("Basic", 0, basicDressImg, playerDressRenderer, this, getIsBought: true); // Setting up all the dresses
       redDress = new Cloth ("Red", 10, redDressImg, playerDressRenderer, this);
       greenDress = new Cloth ("Green", 10, greenDressImg, playerDressRenderer, this);
       silverDress = new Cloth ("Silver", 30, silverDressImg, playerDressRenderer, this);
@@ -68,13 +68,13 @@ public class EquipmentController : MonoBehaviour {
       
       shopControl.equipButton.SetActive (false);
       
-      shopControl.basicEquippedTick.SetActive (false);
+      shopControl.basicEquippedTick.SetActive (false); 
       shopControl.redEquippedTick.SetActive (false);
       shopControl.greenEquippedTick.SetActive (false);
       shopControl.silverEquippedTick.SetActive (false);
       shopControl.goldenEquippedTick.SetActive (false);
       
-      switch (theBoughtCloth.name) {
+      switch (theBoughtCloth.name) { // Setting the ticks that appear next to an equipped dress
          case "Basic" :
             shopControl.basicEquippedTick.SetActive (true);
          break;
