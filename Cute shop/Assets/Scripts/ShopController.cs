@@ -14,6 +14,7 @@ public class ShopController : MonoBehaviour {
    
    public GameObject equipButton;
    public GameObject buyButton;
+   public GameObject sellButton;
    
    public GameObject basicSelectionShadow;
    public GameObject redSelectionShadow;
@@ -61,7 +62,7 @@ public class ShopController : MonoBehaviour {
       goldenDress = new Cloth ("Golden", 50, goldenDressImg, playerDressRenderer, this);
       
       basicDress.Equip ();
-      SetSelectionShadow (basicSelectionShadow);
+      SetSelectedCloth ("Basic");
    }
    
    public void OpenTheShop () {
@@ -82,11 +83,15 @@ public class ShopController : MonoBehaviour {
          case "Basic" :
             selectedCloth = basicDress;
             
+            sellButton.SetActive (false);
+            
             SetSelectionShadow (basicSelectionShadow);
          break;
          
          case "Red" :
             selectedCloth = redDress;
+            
+            sellButton.SetActive (true);
             
             SetSelectionShadow (redSelectionShadow);
          break;
@@ -94,17 +99,23 @@ public class ShopController : MonoBehaviour {
          case "Green" :
             selectedCloth = greenDress;
             
+            sellButton.SetActive (true);
+            
             SetSelectionShadow (greenSelectionShadow);
          break;
          
          case "Silver" :
             selectedCloth = silverDress;
             
+            sellButton.SetActive (true);
+            
             SetSelectionShadow (silverSelectionShadow);
          break;
          
          case "Golden" :
             selectedCloth = goldenDress;
+            
+            sellButton.SetActive (true);
             
             SetSelectionShadow (goldenSelectionShadow);
          break;
@@ -121,11 +132,17 @@ public class ShopController : MonoBehaviour {
          if (selectedCloth.isBought) {
             equipButton.SetActive (true);
             buyButton.SetActive (false);
+            
+            if (selectedCloth.name != "Basic") {
+               sellButton.SetActive (true);
+            }
          }
          
          else {
             buyButton.SetActive (true);
             equipButton.SetActive (false);
+            
+            sellButton.SetActive (false);
          }
          
          equippedSign.SetActive (false);
@@ -159,6 +176,11 @@ public class ShopController : MonoBehaviour {
       selectedCloth.Equip ();
    }
    
+   public void SellSelected () {
+      
+      selectedCloth.Sell ();
+   }
+   
    public void OnClothBought (Cloth theBoughtCloth) {
       
       equipButton.SetActive (true);
@@ -181,6 +203,8 @@ public class ShopController : MonoBehaviour {
             goldenPriceText.SetActive (false);
          break;
       }
+      
+      sellButton.SetActive (true);
    }
    
    public void OnClothEquipped (Cloth theBoughtCloth) {
@@ -216,6 +240,36 @@ public class ShopController : MonoBehaviour {
             goldenEquippedTick.SetActive (true);
          break;
       }
+   }
+   
+   public void OnClothSold (Cloth theSoldCloth) {
+      
+      equipButton.SetActive (false);
+      buyButton.SetActive (true);
+      
+      if (currentCloth == theSoldCloth) {
+         basicDress.Equip ();
+      }
+      
+      switch (theSoldCloth.name) {
+         case "Red" :
+            redPriceText.SetActive (true);
+         break;
+         
+         case "Green" :
+            greenPriceText.SetActive (true);
+         break;
+         
+         case "Silver" :
+            silverPriceText.SetActive (true);
+         break;
+         
+         case "Golden" :
+            goldenPriceText.SetActive (true);
+         break;
+      }
+      
+      SetSelectedCloth (theSoldCloth.name);
    }
 }
 
@@ -261,5 +315,14 @@ public class Cloth {
       playerDressRenderer.sprite = img;
       
       shopControl.OnClothEquipped (this);
+   }
+   
+   public void Sell () {
+      
+      isBought = false;
+      
+      shopControl.playerMoneyControl.IncreaseMoney (price);
+      
+      shopControl.OnClothSold (this);
    }
 }

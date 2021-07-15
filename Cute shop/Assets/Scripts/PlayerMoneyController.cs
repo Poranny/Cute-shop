@@ -23,6 +23,13 @@ public class PlayerMoneyController : MonoBehaviour {
       UpdateMoneyText ();
    }
    
+   public void IncreaseMoney (int amountToTake) {
+      
+      money += amountToTake;
+      
+      UpdateMoneyText ();
+   }
+   
    public void UpdateMoneyText () {
       
       string theMoneyTextString = string.Concat ("Money: " + money);
