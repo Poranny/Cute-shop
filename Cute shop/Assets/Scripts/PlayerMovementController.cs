@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour {
    
    public ShopController shopControl;
+   public DiscussionController discussControl;
    
    public Transform camTransform;
    public Transform playerTransform;
@@ -28,7 +29,13 @@ public class PlayerMovementController : MonoBehaviour {
          if (Physics.Raycast (theMousePos, Vector3.forward, out hit)) {
             if (!isGoing) {
                if (hit.collider.gameObject.CompareTag ("Collision shop")) {
-                  shopControl.OpenTheShop ();
+                  if (discussControl.wasShopOpened) {
+                     shopControl.OpenTheShop ();
+                  }
+                  
+                  else {
+                     discussControl.ShowFirstDialog ();
+                  }
                   
                   StartCoroutine (GoTo (new Vector3 (0, -2, 0)));
                   
