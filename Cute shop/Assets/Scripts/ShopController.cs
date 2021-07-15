@@ -18,15 +18,21 @@ public class ShopController : MonoBehaviour {
    public GameObject basicSelectionShadow;
    public GameObject redSelectionShadow;
    public GameObject greenSelectionShadow;
+   public GameObject silverSelectionShadow;
+   public GameObject goldenSelectionShadow;
    
    public GameObject redPriceText;
    public GameObject greenPriceText;
+   public GameObject silverPriceText;
+   public GameObject goldenPriceText;
    
    public SpriteRenderer playerDressRenderer;
    
    public Sprite basicDressImg;
    public Sprite redDressImg;
    public Sprite greenDressImg;
+   public Sprite silverDressImg;
+   public Sprite goldenDressImg;
    
    
    public Cloth selectedCloth;
@@ -36,6 +42,8 @@ public class ShopController : MonoBehaviour {
    public Cloth basicDress;
    public Cloth redDress;
    public Cloth greenDress;
+   public Cloth silverDress;
+   public Cloth goldenDress;
    
    
    void Start () {
@@ -43,6 +51,8 @@ public class ShopController : MonoBehaviour {
       basicDress = new Cloth ("Basic", 0, basicDressImg, playerDressRenderer, this, getIsBought: true);
       redDress = new Cloth ("Red", 10, redDressImg, playerDressRenderer, this);
       greenDress = new Cloth ("Green", 10, greenDressImg, playerDressRenderer, this);
+      silverDress = new Cloth ("Silver", 30, silverDressImg, playerDressRenderer, this);
+      goldenDress = new Cloth ("Golden", 50, goldenDressImg, playerDressRenderer, this);
       
       basicDress.Equip ();
       SetSelectionShadow (basicSelectionShadow);
@@ -66,15 +76,11 @@ public class ShopController : MonoBehaviour {
          case "Basic" :
             selectedCloth = basicDress;
             
-            basicSelectionShadow.SetActive (true);
-            
             SetSelectionShadow (basicSelectionShadow);
          break;
          
          case "Red" :
             selectedCloth = redDress;
-            
-            redSelectionShadow.SetActive (true);
             
             SetSelectionShadow (redSelectionShadow);
          break;
@@ -82,9 +88,19 @@ public class ShopController : MonoBehaviour {
          case "Green" :
             selectedCloth = greenDress;
             
-            greenSelectionShadow.SetActive (true);
-            
             SetSelectionShadow (greenSelectionShadow);
+         break;
+         
+         case "Silver" :
+            selectedCloth = silverDress;
+            
+            SetSelectionShadow (silverSelectionShadow);
+         break;
+         
+         case "Golden" :
+            selectedCloth = goldenDress;
+            
+            SetSelectionShadow (goldenSelectionShadow);
          break;
       }
       
@@ -115,19 +131,15 @@ public class ShopController : MonoBehaviour {
       basicSelectionShadow.SetActive (false);
       redSelectionShadow.SetActive (false);
       greenSelectionShadow.SetActive (false);
+      silverSelectionShadow.SetActive (false);
+      goldenSelectionShadow.SetActive (false);
       
       chosenSelectionShadow.SetActive (true);
    }
    
    public void ResetSelection () {
       
-      basicSelectionShadow.SetActive (true);
-      redSelectionShadow.SetActive (false);
-      greenSelectionShadow.SetActive (false);
-      
-      buyButton.SetActive (false);
-      equipButton.SetActive (false);
-      equippedSign.SetActive (false);
+      SetSelectedCloth ("Basic");
    }
    
    public void BuySelected () {
@@ -153,6 +165,14 @@ public class ShopController : MonoBehaviour {
          
          case "Green" :
             greenPriceText.SetActive (false);
+         break;
+         
+         case "Silver" :
+            silverPriceText.SetActive (false);
+         break;
+         
+         case "Golden" :
+            goldenPriceText.SetActive (false);
          break;
       }
    }
